@@ -8,5 +8,17 @@ function getComputerChoice() {
         return "paper";
 }
 
-let test = getComputerChoice();
-console.log(test);
+function getHumanChoice () {
+    let choice = prompt("Enter rock, paper or scissors:");
+    let keepGoing = true;
+    while (keepGoing) {
+        if (choice === "rock" || choice === "paper" || choice === "scissors")
+            keepGoing = false;
+        else
+            choice = prompt("Try again: rock, paper or scissors:");
+    }
+    return choice;
+}
+
+let humanScore = 0;
+let computerScore = 0;
