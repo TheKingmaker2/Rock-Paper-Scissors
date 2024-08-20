@@ -1,7 +1,6 @@
 # Rock-Paper-Scissors
 Explanation
 HTML: Provides the structure with three buttons for user choices and a div to display the result.
-CSS: Styles the page for better appearance.
 JavaScript:
 getComputerChoice(): Returns a random choice for the computer.
 determineWinner(userChoice, computerChoice): Determines the winner based on user and computer choices.
