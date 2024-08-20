@@ -1,83 +1,35 @@
+// Function to get a random choice for the computer
 function getComputerChoice() {
-    let choice = Math.random();
-    if (choice <= 0.33)
-        return "rock";
-    else if (choice > 0.33 && choice <= 0.66)
-        return "scissors";
-    else
-        return "paper";
+    const choices = ['rock', 'paper', 'scissors'];
+    const randomIndex = Math.floor(Math.random() * choices.length);
+    return choices[randomIndex];
 }
 
-function getHumanChoice () {
-    let choice = prompt("Enter rock, paper or scissors:");
-    let keepGoing = true;
-    while (keepGoing) {
-        if (choice === "rock" || choice === "paper" || choice === "scissors")
-            keepGoing = false;
-        else
-            choice = prompt("Try again: rock, paper or scissors:");
+// Function to determine the result of the game
+function determineWinner(userChoice, computerChoice) {
+    if (userChoice === computerChoice) {
+        return "It's a tie!";
     }
-    return choice;
+    if (
+        (userChoice === 'rock' && computerChoice === 'scissors') ||
+        (userChoice === 'paper' && computerChoice === 'rock') ||
+        (userChoice === 'scissors' && computerChoice === 'paper')
+    ) {
+        return 'You win!';
+    } else {
+        return 'You lose!';
+    }
 }
 
-function playGame () {
-    let humanScore = 0;
-    let computerScore = 0;
-
-    function playRound (humanChoice, computerChoice) {
-        humanChoice = getHumanChoice().toLowerCase();
-        computerChoice = getComputerChoice();
-
-        if (humanChoice == "rock" && computerChoice == "scissors") {
-            console.log("You win! Rock beats Paper");
-            humanScore++;
-        }
-
-        else if (humanChoice == "rock" && computerChoice == "paper") {
-            console.log("You lose! Paper beats Rock");
-            computerScore++;
-        }
-
-        else if (humanChoice == "rock" && computerChoice == "rock")
-            console.log("It's a draw! Both choices are Rock");
-
-        else if (humanChoice == "scissors" && computerChoice == "paper") {
-            console.log("You win! Scissors beat Paper");
-            humanScore++;
-        }
-
-        else if (humanChoice == "scissors" && computerChoice == "rock") {
-            console.log("You lose! Rock beats Scissors");
-            computerScore++;
-        }
-
-        else if (humanChoice == "scissors" && computerChoice == "scissors")
-            console.log("It's a draw! Both choices are Scissors");
-
-        else if (humanChoice == "paper" && computerChoice == "rock") {
-            console.log("You win! Paper beats Rock");
-            humanScore++;
-        }
-
-        else if (humanChoice == "paper" && computerChoice == "scissors") {
-            console.log("You lose! Scissors beat Paper");
-            computerScore++;
-        }
-
-        else if (humanChoice == "paper" && computerChoice == "paper")
-            console.log("It's a draw! Both choices are Paper");
-
-        console.log("Human score: " + humanScore);
-        console.log("Computer score: " + computerScore);
-    }
-
-    let numberOfRounds = 0;
-    while (numberOfRounds  < 5) {
-        playRound();
-        numberOfRounds++;
-    }
-
-    console.log("\nThe game has ended. The final score is:\n");
-    console.log("Human score: " + humanScore);
-    console.log("\nComputer score: " + computerScore);
+// Function to handle button click
+function handleButtonClick(event) {
+    const userChoice = event.target.id;
+    const computerChoice = getComputerChoice();
+    const result = determineWinner(userChoice, computerChoice);
+    document.getElementById('result').textContent = `You chose ${userChoice}. Computer chose ${computerChoice}. ${result}`;
 }
+
+// Adding event listeners to buttons
+document.getElementById('rock').addEventListener('click', handleButtonClick);
+document.getElementById('paper').addEventListener('click', handleButtonClick);
+document.getElementById('scissors').addEventListener('click', handleButtonClick);
